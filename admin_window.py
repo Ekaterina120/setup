@@ -25,6 +25,7 @@ class AdminWindow(QMainWindow):
         self.pushButton.clicked.connect(self.go_home)
         self.pushButton_2.clicked.connect(self.add_product)
         self.pushButton_3.clicked.connect(self.delete)
+        self.pushButton_4.clicked.connect(self.edit_product)
         self.lineEdit.textChanged.connect(self.load)
         self.comboBox.currentTextChanged.connect(self.load)
         self.comboBox_2.currentTextChanged.connect(self.load)
@@ -79,5 +80,23 @@ class AdminWindow(QMainWindow):
             c.close()
             self.sel = None
             self.load()
+    def edit_product(self):
+        if not self.sel:
+            QMessageBox.warning(self, 'Ошибка', 'Не выбран товар')
+            return
+        c = conn.cursor(dictionary=True)
+        c.execute("""select t.*, c.categor_name, p.proizvod_name, ps.postav_name
+                        from tovar t
+                        join categor c on t.id_categor = c.id_categor
+                        join proizvod p on t.id_proizvod = p.id_proizvod
+                        join postav ps on t.id_postav = ps.id_postav
+                        where t.id_tovar = %s""", (self.sel,))
+        product = c.fetchone()
+        c.close()
+        if product:
+            from edit_product import EditProductDialog
+            dialog = EditProductDialog(product)
+            if dialog.exec() == QDialog.DialogCode.Accepted:
+                self.load()
     def go_home(self):
         self.close()
