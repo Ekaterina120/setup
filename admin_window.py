@@ -8,11 +8,11 @@ from utils import resource_path
 class AdminWindow(QMainWindow):
     def __init__(self, u):
         super().__init__()
-        uic.loadUi(resource_path('../setup/ui/admin.ui'), self)
+        uic.loadUi(resource_path('ui/admin.ui'), self)
         self.sel = None
         self.u = u
         self.label_2.setText(f"Администратор: {u['familia']} {u['name']}")
-        px = QPixmap(resource_path('../setup/Image/Icon.ico'))
+        px = QPixmap(resource_path('Image/Icon.ico'))
         if not px.isNull():
             self.label.setPixmap(px.scaled(151,91,Qt.AspectRatioMode.KeepAspectRatio))
         self.comboBox.addItems(['Без сортировки','По возврастанию цены','По убыванию цены'])

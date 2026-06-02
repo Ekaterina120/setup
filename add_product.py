@@ -5,7 +5,7 @@ from utils import resource_path
 class AddProductDialog(QDialog):
     def __init__(self):
         super().__init__()
-        uic.loadUi(resource_path('../setup/ui/add_product.ui'), self)
+        uic.loadUi(resource_path('ui/add_product.ui'), self)
         self.pushButton.clicked.connect(self.browser)
         self.pushButton_2.clicked.connect(self.add_product)
         self.pushButton_3.clicked.connect(self.reject)

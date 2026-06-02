@@ -8,14 +8,14 @@ from utils import resource_path
 class ClientWindow(QMainWindow):
     def __init__(self, u=None, g=None):
         super().__init__()
-        uic.loadUi(resource_path('../setup/ui/client.ui'), self)
+        uic.loadUi(resource_path('ui/client.ui'), self)
         self.id_guest = g
         self.user_data = u
         if not g and u:
             self.label_2.setText(f"Клиент: {u['familia']} {u['name']}")
         else:
             self.label_2.setText("Гость")
-        px = QPixmap(resource_path('../setup/Image/Icon.ico'))
+        px = QPixmap(resource_path('Image/Icon.ico'))
         if not px.isNull():
             self.label.setPixmap(px.scaled(151,91,Qt.AspectRatioMode.KeepAspectRatio))
         self.pushButton.clicked.connect(self.close)

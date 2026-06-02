@@ -11,10 +11,10 @@ from manager_window import ManagerWindow
 class LoginDialog(QDialog):
     def __init__(self):
         super().__init__()
-        uic.loadUi(resource_path('../setup/ui/login.ui'),self)
+        uic.loadUi(resource_path('ui/login.ui'),self)
         self.user_data = None
         self.id_guest = False
-        px = QPixmap(resource_path('../setup/Image/Icon.ico'))
+        px = QPixmap(resource_path('Image/Icon.ico'))
         if not px.isNull():
             self.label.setPixmap(px.scaled(200,200,Qt.AspectRatioMode.KeepAspectRatio))
         self.pushButton.clicked.connect(self.login)

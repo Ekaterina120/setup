@@ -7,7 +7,7 @@ from utils import resource_path
 class ProductCard(QWidget):
     def __init__(self, p, parent=None):
         super().__init__(parent)
-        uic.loadUi(resource_path('../setup/ui/card.ui'), self)
+        uic.loadUi(resource_path('ui/card.ui'), self)
         self.product_id = p['id_tovar']
         self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
         self.label_2.setText(f"{p['categor_name']} | {p['tovar_name']}")
