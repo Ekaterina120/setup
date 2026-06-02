@@ -25,6 +25,7 @@ class ManagerWindow(QMainWindow):
         self.pushButton.clicked.connect(self.go_home)
         self.pushButton_2.hide()
         self.pushButton_3.hide()
+        self.pushButton_4.hide()
         self.lineEdit.textChanged.connect(self.load)
         self.comboBox.currentTextChanged.connect(self.load)
         self.comboBox_2.currentTextChanged.connect(self.load)
