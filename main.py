@@ -1,7 +1,7 @@
 import sys
 from PyQt6 import uic
-from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import *
+from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap
 from database import conn
 from utils import resource_path
@@ -11,7 +11,7 @@ from manager_window import ManagerWindow
 class LoginDialog(QDialog):
     def __init__(self):
         super().__init__()
-        uic.loadUi(resource_path('ui/login.ui'),self)
+        uic.loadUi(resource_path('ui/login.ui'), self)
         self.user_data = None
         self.id_guest = False
         px = QPixmap(resource_path('Image/Icon.ico'))
@@ -21,7 +21,7 @@ class LoginDialog(QDialog):
         self.pushButton_2.clicked.connect(self.login_as_guest)
     def login(self):
         c = conn.cursor(dictionary=True)
-        c.execute('select u.*, r.role_name from user u join role r on u.id_role = r.id_role where u.login = %s and u.password = %s',
+        c.execute('select u.*, r.role_name from user u join role r on u.id_role = r.id_role where u.login = %s and u.password =%s',
                   (self.lineEdit.text(), self.lineEdit_2.text()))
         u = c.fetchone()
         c.close()
@@ -30,7 +30,7 @@ class LoginDialog(QDialog):
             self.id_guest = False
             self.accept()
         else:
-            QMessageBox.warning(self, 'Ошибка','Неверный логин или пароль')
+            QMessageBox.warning(self, 'Ошибка', 'Неверный логин или пароль')
     def login_as_guest(self):
         self.user_data = None
         self.id_guest = True

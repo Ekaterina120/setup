@@ -2,17 +2,17 @@ from PyQt6 import uic
 from PyQt6.QtWidgets import *
 from database import conn
 from utils import resource_path
-class AddProductDialog(QDialog):
+class AddProduct(QDialog):
     def __init__(self):
         super().__init__()
-        uic.loadUi(resource_path('ui/add_product.ui'), self)
+        uic.loadUi(resource_path("ui/add_product.ui"), self)
         self.pushButton.clicked.connect(self.browser)
         self.pushButton_2.clicked.connect(self.add_product)
         self.pushButton_3.clicked.connect(self.reject)
         c = conn.cursor()
         c.execute('select id_categor, categor_name from categor')
         for r in c.fetchall():
-            self.comboBox.addItem(r[1],r[0])
+            self.comboBox.addItem(r[1], r[0])
         c.close()
         c = conn.cursor()
         c.execute('select id_proizvod, proizvod_name from proizvod')
@@ -26,19 +26,19 @@ class AddProductDialog(QDialog):
         c.close()
         self.photo_path = None
     def browser(self):
-        file, _ = QFileDialog.getOpenFileName(self,'Фото','','Image(*.png, *.jpg)')
+        file, _ = QFileDialog.getOpenFileName(self, 'Фото', '', 'Image(*.png, *.jpg)')
         if file:
             self.photo_path = file
             self.lineEdit_6.setText(file)
     def add_product(self):
         if not self.lineEdit.text():
-            QMessageBox.warning(self, 'Ошибка', 'Введите название товара')
+            QMessageBox.warning(self, 'Ошибка', 'Нет названия товара')
             return
         if not self.lineEdit_3.text():
-            QMessageBox.warning(self, 'Ошибка', 'Введите цену товара')
+            QMessageBox.warning(self, 'Ошибка', 'Нет цены товара')
             return
         c = conn.cursor()
-        c.execute('insert into tovar (tovar_name, opisanie, id_categor, id_proizvod, id_postav, price, sale, kol_sklad, foto) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)',
+        c.execute("insert into tovar (tovar_name, opisanie, id_categor, id_proizvod, id_postav, price, sale, kol_sklad, foto) values (%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                   (self.lineEdit.text(),
                    self.lineEdit_2.text(),
                    self.comboBox.currentData(),
@@ -47,7 +47,7 @@ class AddProductDialog(QDialog):
                    float(self.lineEdit_3.text()),
                    int(self.lineEdit_4.text()),
                    int(self.lineEdit_5.text()),
-                   self.photo_path,
+                   self.photo_path
                    ))
         conn.commit()
         c.close()
